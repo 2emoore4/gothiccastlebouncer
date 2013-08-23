@@ -6,7 +6,7 @@ app.use express.static '/srv/http/'
 
 app.use express.bodyParser()
 app.post '/gc/start', (req, res) ->
-  console.log 'attempting to start server'
+  console.log 'starting gothic castle'
   child_process.exec 'wol 00:04:4B:05:80:AA', (error, stdout, stderr) ->
     console.log stdout
     res.send 'gothic castle has been awoken'
