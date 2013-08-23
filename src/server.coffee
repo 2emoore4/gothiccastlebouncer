@@ -4,7 +4,8 @@ app = express()
 
 app.use express.static '/srv/http/'
 
-app.get '/gc/start', (req, res) ->
+app.use express.bodyParser()
+app.post '/gc/start', (req, res) ->
   console.log 'attempting to start server'
   child_process.exec 'wol 00:04:4B:05:80:AA', (error, stdout, stderr) ->
     console.log stdout
