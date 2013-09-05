@@ -1,5 +1,6 @@
 express = require 'express'
 child_process = require 'child_process'
+request = require 'request'
 app = express()
 
 app.use express.static '/srv/http/'
@@ -10,6 +11,12 @@ app.post '/gc/start', (req, res) ->
   child_process.exec 'wol 00:04:4B:05:80:AA', (error, stdout, stderr) ->
     console.log stdout
     res.send 'gothic castle has been awoken'
+
+app.post '/gc/stop', (req, res) ->
+  console.log 'suspending gothic castle'
+  request.post 'http://192.168.1.102:8888/ga/suspend', {}, (err, resp, body) ->
+    console.log err
+  res.send 'gothic castle has been put to sleep'
 
 app.get '/plex', (req, res) ->
   console.log 'getting a request for plex'
